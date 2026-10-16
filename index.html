@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baltic Brew − Kraftinio alaus baras Karoliniškėse</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --ink: #16110c;
+      --ink-2: #241a12;
+      --amber: #e8a33d;
+      --amber-dark: #c07d1e;
+      --copper: #b06a2c;
+      --cream: #f6efe3;
+      --cream-2: #ece0cd;
+      --gray: #8a7d6d;
+      --white: #ffffff;
+      --shadow: 0 10px 40px rgba(22, 17, 12, .14);
+      --radius: 18px;
+      --radius-sm: 10px;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      color: var(--ink);
+      background: var(--cream);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .brand, .display {
+      font-family: 'Bebas Neue', 'Inter', sans-serif;
+      letter-spacing: .02em;
+      line-height: 1;
+    }
+
+    img { display: block; max-width: 100%; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      background: rgba(22,17,12,.92);
+      backdrop-filter: blur(10px);
+      z-index: 100;
+      border-bottom: 1px solid rgba(232,163,61,.18);
+    }
+    .brand {
+      font-size: 1.6rem;
+      color: var(--cream);
+      letter-spacing: .06em;
+    }
+    .brand span { color: var(--amber); }
+    .nav-links { display: flex; gap: 1.6rem; align-items: center; }
+    .nav-links a {
+      color: var(--cream-2);
+      text-decoration: none;
+      font-size: .85rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--amber); }
+    .nav-cta {
+      background: var(--amber);
+      color: var(--ink) !important;
+      padding: .5rem 1.2rem;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+    .nav-cta:hover { background: var(--amber-dark) !important; color: var(--white) !important; }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      margin-top: 64px;
+      display: flex;
+      align-items: center;
+      padding: 5rem 2rem;
+      background: var(--ink);
+      color: var(--cream);
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(90deg, rgba(22,17,12,.94) 0%, rgba(22,17,12,.72) 45%, rgba(22,17,12,.35) 100%), url('https://images.unsplash.com/photo-1518176258769-f227c798150e?auto=format&fit=crop&w=2000&q=80');
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 3.5rem;
+      align-items: center;
+      width: 100%;
+    }
+    .tag {
+      display: inline-block;
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      color: var(--amber);
+      font-weight: 600;
+      margin-bottom: 1.1rem;
+    }
+    .hero h1 {
+      font-size: 5rem;
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 span { color: var(--amber); }
+    .hero p.lead {
+      font-size: 1.12rem;
+      color: var(--cream-2);
+      max-width: 480px;
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+    .badges { display: flex; gap: .6rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .badge {
+      padding: .4rem 1rem;
+      border-radius: 999px;
+      font-size: .8rem;
+      font-weight: 500;
+      background: rgba(246,239,227,.08);
+      border: 1px solid rgba(246,239,227,.2);
+      color: var(--cream-2);
+    }
+    .badge.hot { background: var(--amber); color: var(--ink); border: none; font-weight: 700; }
+    .actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .9rem 2rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: .95rem;
+      transition: all .22s;
+    }
+    .btn-amber { background: var(--amber); color: var(--ink); box-shadow: 0 6px 22px rgba(232,163,61,.32); }
+    .btn-amber:hover { background: var(--amber-dark); color: var(--white); transform: translateY(-2px); }
+    .btn-ghost { background: transparent; color: var(--cream); border: 1.5px solid rgba(246,239,227,.35); }
+    .btn-ghost:hover { border-color: var(--amber); color: var(--amber); }
+
+    .hero-card {
+      background: rgba(246,239,227,.06);
+      border: 1px solid rgba(232,163,61,.22);
+      border-radius: var(--radius);
+      padding: 1.6rem;
+      backdrop-filter: blur(6px);
+    }
+    .hero-card img {
+      border-radius: var(--radius-sm);
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+    .hero-card .cap {
+      margin-top: 1rem;
+      font-size: .84rem;
+      color: var(--cream-2);
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+    .hero-card .cap b { color: var(--amber); }
+
+    /* ─── SECTIONS ─── */
+    section { padding: 5rem 2rem; }
+    .wrap { max-width: 1100px; margin: 0 auto; }
+    .head { text-align: center; margin-bottom: 3rem; }
+    .head h2 { font-size: 3rem; color: var(--ink); margin-bottom: .6rem; }
+    .head p { color: var(--gray); max-width: 520px; margin: 0 auto; }
+
+    /* ─── ON TAP (beers) ─── */
+    #tap { background: var(--cream); }
+    .tap-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.6rem;
+    }
+    .beer {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: transform .3s;
+    }
+    .beer:hover { transform: translateY(-6px); }
+    .beer .shot { position: relative; height: 210px; overflow: hidden; }
+    .beer .shot img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+    .beer:hover .shot img { transform: scale(1.06); }
+    .beer .style {
+      position: absolute;
+      top: 12px; left: 12px;
+      background: var(--ink);
+      color: var(--amber);
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      padding: .3rem .7rem;
+      border-radius: 999px;
+    }
+    .beer .abv {
+      position: absolute;
+      top: 12px; right: 12px;
+      background: rgba(232,163,61,.94);
+      color: var(--ink);
+      font-size: .72rem;
+      font-weight: 800;
+      padding: .3rem .7rem;
+      border-radius: 999px;
+    }
+    .beer .body { padding: 1.4rem; }
+    .beer h3 { font-size: 1.5rem; margin-bottom: .3rem; letter-spacing: .03em; }
+    .beer .origin { font-size: .8rem; color: var(--copper); text-transform: uppercase; letter-spacing: .08em; font-weight: 600; margin-bottom: .7rem; }
+    .beer p { font-size: .9rem; color: var(--gray); margin-bottom: 1rem; }
+    .beer .row { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid var(--cream-2); padding-top: .9rem; }
+    .beer .row .p { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--amber-dark); }
+    .beer .row .p small { font-family: 'Inter', sans-serif; font-size: .72rem; color: var(--gray); }
+
+    /* ─── ABOUT ─── */
+    #about { background: var(--ink); color: var(--cream); }
+    #about .head h2 { color: var(--cream); }
+    #about .head p { color: var(--cream-2); }
+    .about-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 3rem; align-items: center; }
+    .about-grid img { border-radius: var(--radius); height: 420px; object-fit: cover; width: 100%; }
+    .about-text h3 { font-size: 2rem; color: var(--amber); margin-bottom: 1rem; }
+    .about-text p { color: var(--cream-2); margin-bottom: .9rem; }
+    .feats { list-style: none; margin-top: 1.5rem; }
+    .feats li { padding: .55rem 0; display: flex; gap: .8rem; align-items: center; border-bottom: 1px solid rgba(246,239,227,.12); }
+    .feats li:last-child { border: none; }
+    .feats .k { color: var(--amber); font-weight: 700; }
+
+    /* ─── GALLERY ─── */
+    #gallery { background: var(--cream); }
+    .gal {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 220px 220px;
+      gap: 12px;
+    }
+    .gal figure { position: relative; overflow: hidden; border-radius: var(--radius-sm); }
+    .gal img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+    .gal figure:hover img { transform: scale(1.05); }
+    .gal figure:first-child { grid-row: span 2; }
+    .gal figcaption {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      padding: 1.2rem .9rem .7rem;
+      background: linear-gradient(transparent, rgba(22,17,12,.85));
+      color: var(--cream);
+      font-size: .82rem;
+      font-weight: 500;
+    }
+
+    /* ─── EVENTS strip ─── */
+    .events { background: var(--copper); color: var(--white); }
+    .events .wrap { display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; }
+    .events h2 { font-size: 2.4rem; }
+    .events p { opacity: .92; max-width: 460px; }
+    .events .btn { background: var(--ink); color: var(--amber); }
+    .events .btn:hover { background: var(--white); color: var(--ink); }
+
+    /* ─── CONTACT ─── */
+    #contact { background: var(--cream); }
+    .contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; max-width: 720px; margin: 0 auto; }
+    .c-item {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1.2rem 1.3rem;
+      background: var(--white);
+      border-radius: var(--radius-sm);
+      box-shadow: 0 4px 18px rgba(22,17,12,.06);
+    }
+    .c-item .ico { font-size: 1.5rem; width: 40px; text-align: center; }
+    .c-item .lbl { font-size: .74rem; text-transform: uppercase; letter-spacing: .1em; color: var(--gray); font-weight: 600; }
+    .c-item .v { font-weight: 600; font-size: .95rem; }
+    .c-item a { color: var(--ink); text-decoration: none; }
+    .c-item a:hover { color: var(--amber-dark); }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--ink); color: var(--gray); text-align: center; padding: 2.2rem; font-size: .82rem; border-top: 1px solid rgba(232,163,61,.15); }
+    footer span { color: var(--amber); }
+
+    @media (max-width: 860px) {
+      .nav-links { display: none; }
+      .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .hero h1 { font-size: 3.4rem; }
+      .hero-card { display: none; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-grid img { height: 300px; }
+      .gal { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, 170px); }
+      .gal figure:first-child { grid-row: span 1; grid-column: span 2; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .head h2 { font-size: 2.3rem; }
+      section { padding: 3.4rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <div class="brand">Baltic <span>Brew</span></div>
+  <div class="nav-links">
+    <a href="#tap">Ant čiaupų</a>
+    <a href="#about">Apie barą</a>
+    <a href="#gallery">Galerija</a>
+    <a href="#contact" class="nav-cta">📞 Rezervuoti</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="tag">🍺 Karoliniškės · nuo 2014 m.</div>
+      <h1>Kraftinis alaus baras <span>Baltic Brew</span></h1>
+      <p class="lead">12 čiaupų, rotuojantis alaus sąrašas ir jauki vieta susitikti L. Asanavičiūtės g. 29. Viskas, ko reikia geram vakarui.</p>
+      <div class="badges">
+        <span class="badge hot">⭐ 4.6 (vidutinis įvertinimas)</span>
+        <span class="badge">🍺 12 čiaupų</span>
+        <span class="badge">🎲 Stalo žaidimai</span>
+        <span class="badge">📺 Sporto transliacijos</span>
+      </div>
+      <div class="actions">
+        <a href="#tap" class="btn btn-amber">🍺 Ką turime ant čiaupų</a>
+        <a href="tel:+37069884862" class="btn btn-ghost">📞 +370 698 84862</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <img src="https://images.unsplash.com/photo-1436076863939-06870fe779c2?auto=format&fit=crop&w=1000&q=80" alt="Alaus čiaupai Bare Baltic Brew">
+      <div class="cap">🍺 Ant čiaupų kiekvieną savaitę — <b>naujos lietuviškos ir užsienio krafto kolekcijos</b></div>
+    </div>
+  </div>
+</header>
+
+<!-- ─── ON TAP ─── -->
+<section id="tap">
+  <div class="wrap">
+    <div class="head">
+      <div class="tag" style="color:var(--copper)">On tap</div>
+      <h2>Šios savaitės čiaupai</h2>
+      <p>Sąrašas rotuojasi kiekvieną savaitę — sezoninis, vietinis ir importuotas kraftas.</p>
+    </div>
+    <div class="tap-grid">
+
+      <article class="beer">
+        <div class="shot">
+          <span class="style">Lager</span>
+          <span class="abv">4.5%</span>
+          <img src="https://images.unsplash.com/photo-1608270586620-248524c67de9?auto=format&fit=crop&w=900&q=80" alt="Šviesus alaus stiklas su puta">
+        </div>
+        <div class="body">
+          <h3>Šviesusis Paplūdimio</h3>
+          <div class="origin">Vilniaus alus · Lietuva</div>
+          <p>Gaivus, lengvai gurkšnokamas šviesus lageris su švelniu salyklo finišu. Puikus atspirties taškas vakarui.</p>
+          <div class="row"><span class="p">€ 4,50 <small>/ 0,5 l</small></span><span class="badge" style="font-size:.72rem">Klasika</span></div>
+        </div>
+      </article>
+
+      <article class="beer">
+        <div class="shot">
+          <span class="style">IPA</span>
+          <span class="abv">6.2%</span>
+          <img src="https://images.unsplash.com/photo-1535958636474-b021ee887b13?auto=format&fit=crop&w=900&q=80" alt="Rytietiškas IPA su apynių aromatu">
+        </div>
+        <div class="body">
+          <h3>Nordic Haze IPA</h3>
+          <div class="origin">Hazy · Importas</div>
+          <p>Rūko efektas, cirtuso ir tropinių vaisių aromatas, švelnus kartumas. Mėgstamiausia svečių.</p>
+          <div class="row"><span class="p">€ 6,00 <small>/ 0,4 l</small></span><span class="badge" style="font-size:.72rem">Top</span></div>
+        </div>
+      </article>
+
+      <article class="beer">
+        <div class="shot">
+          <span class="style">Stout</span>
+          <span class="abv">7.0%</span>
+          <img src="https://images.unsplash.com/photo-1541557435984-1c79685a082b?auto=format&fit=crop&w=900&q=80" alt="Tamsus alus stikle">
+        </div>
+        <div class="body">
+          <h3>Naktinė Stout</h3>
+          <div class="origin">Kraftas · Lietuva</div>
+          <p>Kavos, kakavos ir skrudinto salyklo natos. Tirštas ir sodrus — tamsaus alaus mėgėjams.</p>
+          <div class="row"><span class="p">€ 5,50 <small>/ 0,4 l</small></span><span class="badge" style="font-size:.72rem">Sodrus</span></div>
+        </div>
+      </article>
+
+      <article class="beer">
+        <div class="shot">
+          <span class="style">Cider</span>
+          <span class="abv">4.8%</span>
+          <img src="https://images.unsplash.com/photo-1622597467836-f3285f2131b8?auto=format&fit=crop&w=900&q=80" alt="Obuolių sidras su ledu">
+        </div>
+        <div class="body">
+          <h3>Obuolių Sidras</h3>
+          <div class="origin">Naminis · Sezoninis</div>
+          <p>Rūgštokas, gaivus obuolių sidras su ledo gabalėliu. Tobulas šiltam vakarui.</p>
+          <div class="row"><span class="p">€ 4,00 <small>/ 0,4 l</small></span><span class="badge" style="font-size:.72rem">Gaivu</span></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section id="about">
+  <div class="wrap">
+    <div class="head">
+      <div class="tag">Apie barą</div>
+      <h2>Vieta, kur alus turi charakterį</h2>
+      <p>Nuo 2014 metų — nedidelis, bet savo atmosfera garsus kampas Karoliniškėse.</p>
+    </div>
+    <div class="about-grid">
+      <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1100&q=80" alt="Jaukus baro interjeras su medinėmis detalėmis">
+      <div class="about-text">
+        <h3>Jaukus kampas, geras alus</h3>
+        <p>Baltic Brew — tai nedidelis kraftinio alaus baras L. Asanavičiūtės g. 29, kurio širdis — 12 čiaupų su vis kintančiu alaus sąrašu.</p>
+        <p>Mes renkamės alų iš mažų daryklų, laikome jį teisingoje temperatūroje ir mielai patarsime, ką rinktis šįvakar.</p>
+        <ul class="feats">
+          <li><span class="k">✦</span> 12 rotuojančių čiaupų</li>
+          <li><span class="k">✦</span> Lietuviškas ir importinis kraftas</li>
+          <li><span class="k">✦</span> Stalo žaidimai ir sporto transliacijos</li>
+          <li><span class="k">✦</span> Grupiniai užsakymai iki 30 asmenų</li>
+          <li><span class="k">✦</span> Draugiška komanda, kuri išmano alų</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── GALLERY ─── -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="head">
+      <div class="tag" style="color:var(--copper)">Galerija</div>
+      <h2>Baro akimis</h2>
+      <p>Alaus čiaupai, pinta ir jauki vakaro nuotaika — štai kas laukia viduje.</p>
+    </div>
+    <div class="gal">
+      <figure>
+        <img src="https://images.unsplash.com/photo-1436076863939-06870fe779c2?auto=format&fit=crop&w=1200&q=80" alt="Alaus čiaupų eilė bare">
+        <figcaption>🍺 12 čiaupų su kintančiu asortimentu</figcaption>
+      </figure>
+      <figure>
+        <img src="https://images.unsplash.com/photo-1608270586620-248524c67de9?auto=format&fit=crop&w=800&q=80" alt="Pinta šviesaus alaus ant medinio stalo">
+        <figcaption>🍻 Šviežiai įpilta pinta</figcaption>
+      </figure>
+      <figure>
+        <img src="https://images.unsplash.com/photo-1571613316887-6f8d5cbf7ef7?auto=format&fit=crop&w=800&q=80" alt="Alaus bokalas su puta arti">
+        <figcaption>🌾 Kraftas, kuris turi charakterį</figcaption>
+      </figure>
+      <figure>
+        <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80" alt="Baro interjeras su medinėmis detalėmis">
+        <figcaption>🪑 Jauki vakaro atmosfera</figcaption>
+      </figure>
+      <figure>
+        <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=800&q=80" alt="Bokalai alaus šalia bare">
+        <figcaption>🍺 Alus, įpiltas su meile</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ─── EVENTS ─── -->
+<div class="events">
+  <div class="wrap">
+    <div>
+      <h2>🎉 Vakarėliai ir grupiniai vakaro užsakymai</h2>
+      <p>Gimtadieniai, komandos vakarai, alaus degustacijos — paruošime meniu pagal jūsų biudžetą iki 30 asmenų Karoliniškėse.</p>
+    </div>
+    <a href="tel:+37069884862" class="btn">📞 Rezervuoti: +370 698 84862</a>
+  </div>
+</div>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact">
+  <div class="wrap">
+    <div class="head">
+      <div class="tag" style="color:var(--copper)">Kontaktai</div>
+      <h2>Susisiekite</h2>
+      <p>Paskambinkite arba užsukite — visada pasiruošę rekomenduoti gerą alų.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="c-item">
+        <span class="ico">📞</span>
+        <div><div class="lbl">Telefonas</div><div class="v"><a href="tel:+37069884862">+370 698 84862</a></div></div>
+      </div>
+      <div class="c-item">
+        <span class="ico">📍</span>
+        <div><div class="lbl">Adresas</div><div class="v">L. Asanavičiūtės g. 29, Vilnius</div></div>
+      </div>
+      <div class="c-item">
+        <span class="ico">🕐</span>
+        <div><div class="lbl">Darbo laikas</div><div class="v">I–IV 16–24 · V–VI 16–02 · VII 16–22</div></div>
+      </div>
+      <div class="c-item">
+        <span class="ico">💬</span>
+        <div><div class="lbl">Facebook</div><div class="v"><a href="https://www.facebook.com/balticbrewvilnius" target="_blank" rel="noopener">@balticbrewvilnius</a></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <p>© 2026 <span>Baltic Brew</span> · L. Asanavičiūtės g. 29, Vilnius · Šis puslapis yra demonstracija</p>
+</footer>
+
+</body>
+</html>
